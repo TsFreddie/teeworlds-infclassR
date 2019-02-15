@@ -164,6 +164,10 @@ void IGameController::StartRound()
 	char aBuf[256];
 	str_format(aBuf, sizeof(aBuf), "start round type='%s' teamplay='%d' id='%d'", m_pGameType, m_GameFlags&GAMEFLAG_TEAMS, m_RoundId);
 	GameServer()->Console()->Print(IConsole::OUTPUT_LEVEL_DEBUG, "game", aBuf);
+	
+	if (Server()->GetActivePlayerCount() <= 3) {
+		GameServer()->SendChatTarget_Localization(-1, CHATCATEGORY_PLAYER, _("Note: Low player count - weapon damage reduction active"));
+	}
 }
 
 void IGameController::ChangeMap(const char *pToMap)
