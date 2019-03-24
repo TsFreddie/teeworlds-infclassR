@@ -212,7 +212,7 @@ void CGameContext::CountHumans()
 	m_NbHumans = humanCounter;
 	m_NbZombies = zombieCounter;
 	
-	dbg_msg("Game", "#humans: %d -- #zombies: %d", m_NbHumans, m_NbZombies);
+	//dbg_msg("Game", "#humans: %d -- #zombies: %d", m_NbHumans, m_NbZombies);
 	
 }
 
@@ -237,7 +237,7 @@ void CGameContext::CountZombies()
 	m_NbZombies = zombieCounter;
 	m_NbHumans = humanCounter;
 	
-	dbg_msg("Server_Player_Info", "#humans: %d -- #zombies: %d", m_NbHumans, m_NbZombies);
+	//dbg_msg("Server_Player_Info", "#humans: %d -- #zombies: %d", m_NbHumans, m_NbZombies);
 }
 
 int CGameContext::GetZombieCount()
