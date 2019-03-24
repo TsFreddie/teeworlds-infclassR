@@ -145,23 +145,18 @@ void CGameContext::CountActivePlayers(){
 	
 	// returns how many players are currently playing and not spectating
 	int PlayerCount = 0;
-	int SpecCount = 0;
-	auto& vec = spectators_id;
 	for(int i=0; i<MAX_CLIENTS; i++)
 	{
-		if(m_apPlayers[i] && m_apPlayers[i]->m_IsInGame == true)
-		{
-			if (std::find(vec.begin(), vec.end(), i) == vec.end())
+		if(m_apPlayers[i] && m_apPlayers[i]->m_IsInGame && !m_apPlayers[i]->IsSpectator())
 				PlayerCount++;
-			else 
-				SpecCount++;
-		}
 	}
 	
 	m_NbActivePlayers = PlayerCount;
-	m_NbSpectators = SpecCount;
 	
-	dbg_msg("Game", "Active Players: %d -- Spectators: %d", m_NbActivePlayers, m_NbSpectators);
+	//console output
+	char aBuf[256];
+	str_format(aBuf, sizeof(aBuf), "Active Players: %d", m_NbActivePlayers);
+	Console()->Print(IConsole::OUTPUT_LEVEL_DEBUG, "game", aBuf);
 }
 
 
@@ -172,22 +167,20 @@ int CGameContext::GetActivePlayerCount()
 
 void CGameContext::CountSpectators(){
 	
-	int PlayerCount = 0;
 	int SpecCount = 0;
-	auto& vec = spectators_id;
 	for(int i=0; i<MAX_CLIENTS; i++)
 	{
-		if(m_apPlayers[i] && m_apPlayers[i]->m_IsInGame)
-		{
-			if (std::find(vec.begin(), vec.end(), i) == vec.end())
-				PlayerCount++;
-			else 
+		if(m_apPlayers[i] && m_apPlayers[i]->m_IsInGame && m_apPlayers[i]->IsSpectator())
 				SpecCount++;
-		}
 	}
 	
-	m_NbActivePlayers = PlayerCount;
 	m_NbSpectators = SpecCount;
+	
+	//console output
+	char aBuf[256];
+	str_format(aBuf, sizeof(aBuf), "Spectators: %d", m_NbSpectators);
+	Console()->Print(IConsole::OUTPUT_LEVEL_DEBUG, "game", aBuf);
+	
 }
 
 int CGameContext::GetSpectatorCount()
@@ -1726,7 +1719,8 @@ void CGameContext::OnClientEnter(int ClientID)
 	m_VoteUpdate = true;
 	
 	//Count players
-	CountActivePlayers(); //updates also spectators
+	CountActivePlayers();
+	CountSpectators();
 	CountHumans(); //updates also zombies
 	
 }
@@ -1781,7 +1775,8 @@ void CGameContext::OnClientConnected(int ClientID)
 	m_BroadcastStates[ClientID].m_PrevMessage[0] = 0;
 	m_BroadcastStates[ClientID].m_NextMessage[0] = 0;
 	
-	CountActivePlayers(); //updates also spectators
+	CountActivePlayers();
+	CountSpectators();
 	CountHumans(); //updates also zombies
 	
 }
@@ -1814,7 +1809,8 @@ void CGameContext::OnClientDrop(int ClientID, int Type, const char *pReason)
 	Console()->Print(IConsole::OUTPUT_LEVEL_STANDARD, "server", aBuf);
 
 	//Count players
-	CountActivePlayers(); //updates also spectators
+	CountActivePlayers();
+	CountSpectators();
 	CountHumans(); //updates also zombies
 	
 	

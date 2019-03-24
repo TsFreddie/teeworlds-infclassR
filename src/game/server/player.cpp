@@ -577,7 +577,8 @@ void CPlayer::SetTeam(int Team, bool DoChatMsg)
 		
 	}
 	
-	GameServer()->CountActivePlayers(); // updates also spectators
+	GameServer()->CountActivePlayers();
+	GameServer()->CountSpectators();
 	GameServer()->CountHumans(); // updates also zombies
 	
 }
