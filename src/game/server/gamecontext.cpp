@@ -223,7 +223,6 @@ void CGameContext::NerfWeapons()
 	g_Config.m_InfSniperLaserBaseDmg = 6; 		//hearts
 	g_Config.m_InfMercGunAmmoRegenTime = 300; 	//milli-seconds
 	g_Config.m_InfMercMaxGunAmmo = 30; 			// bullets
-	g_Config.m_InfBarrierDamage = 7; 			// hearts
 	g_Config.m_InfNinjaJump = 1;
 
 	bool refresh = true;
@@ -249,7 +248,6 @@ void CGameContext::SaveWeaponConfig() {
 		g_Config.m_InfSniperLaserBaseDmg,
 		g_Config.m_InfMercGunAmmoRegenTime,
 		g_Config.m_InfMercMaxGunAmmo,
-		g_Config.m_InfBarrierDamage,
 		g_Config.m_InfNinjaJump
 	};
 	
@@ -280,8 +278,7 @@ void CGameContext::ResetWeaponConfig(std::vector<int> value) {
 		g_Config.m_InfSniperLaserBaseDmg = value[10];
 		g_Config.m_InfMercGunAmmoRegenTime = value[11];
 		g_Config.m_InfMercMaxGunAmmo = value[12];
-		g_Config.m_InfBarrierDamage = value[13];
-		g_Config.m_InfNinjaJump  = value[14];
+		g_Config.m_InfNinjaJump  = value[13];
 		
 		bool refresh = true;
 		InitializeWeaponParams(refresh);

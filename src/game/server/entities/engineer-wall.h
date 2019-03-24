@@ -25,7 +25,6 @@ private:
 	int m_LifeSpan;
 	int m_EndPointID;
 	int m_WallFlashTicks;
-	int m_Damage;
 };
 
 #endif
