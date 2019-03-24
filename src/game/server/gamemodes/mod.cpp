@@ -268,8 +268,6 @@ void CGameControllerMOD::Tick()
 						{
 							Server()->InfecteClient(Iter.ClientID());
 							Iter.Player()->StartInfection();
-							NumInfected++;
-							NumHumans--;
 							
 							GameServer()->SendChatTarget_Localization(-1, CHATCATEGORY_INFECTION, _("{str:VictimName} has been infected"), 
 								"VictimName", 

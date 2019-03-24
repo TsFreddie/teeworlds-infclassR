@@ -1316,7 +1316,7 @@ void CGameContext::OnTick()
 	static bool alreadyNerfed = false;
 	static bool alreadyUnNerfed = false;
 	// Low player count leads to nerfed weapons
-	if (Server()->GetActivePlayerCount() <= 1)
+	if (GetActivePlayerCount() <= 1)
 	{
 		if (!alreadyNerfed){
 			SaveWeaponConfig();
